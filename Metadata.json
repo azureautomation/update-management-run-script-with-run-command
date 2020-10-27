@@ -1,0 +1,20 @@
+{
+    "Author": "Azure Automation Product Team",
+    "ContentSize": 3114,
+    "ContentUrl": "https://raw.githubusercontent.com/azureautomation/update-management-run-script-with-run-command/master/UpdateManagement-RunCommand.ps1",
+    "DownloadCount": 2857,
+    "Id": "Update-Management-Run-40f470dc",
+    "IsFederated": true,
+    "IsWorkflow": false,
+    "Popularity": 39,
+    "RaterCount": 1,
+    "Rating": 4.0,
+    "ReleaseDate": "2018-9-18T00:00:00",
+    "RunbookKind": 5,
+    "RunbookKindString": "PowerShell",
+    "Summary": "This script is intended to be run as a part of Update Management Pre/Post scripts.It will run a script locally on an Azure VM using the Run Command functionality. It requires the module \"ThreadJob\" from the PowerShell Gallery.",
+    "Title": "Update Management - Run Script with Run Command",
+    "UpdatedDate": "2018-9-22T00:00:00",
+    "Url": "https://github.com/azureautomation/update-management-run-script-with-run-command",
+    "UserTags": "Patching"
+}
