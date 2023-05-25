@@ -1,6 +1,6 @@
-<#
+﻿<#
 .SYNOPSIS
- Stop a service on an AzureRM using RunCommand
+ Stop a service on an AzRM using RunCommand
 
 .DESCRIPTION
   This script is intended to be run as a part of Update Management Pre/Post scripts. 
@@ -15,16 +15,9 @@ param(
 )
 
 #region BoilerplateAuthentication
-#This requires a RunAs account
-$ServicePrincipalConnection = Get-AutomationConnection -Name 'AzureRunAsConnection'
-
-Add-AzureRmAccount `
-    -ServicePrincipal `
-    -TenantId $ServicePrincipalConnection.TenantId `
-    -ApplicationId $ServicePrincipalConnection.ApplicationId `
-    -CertificateThumbprint $ServicePrincipalConnection.CertificateThumbprint
-
-$AzureContext = Select-AzureRmSubscription -SubscriptionId $ServicePrincipalConnection.SubscriptionID
+#This requires a System Managed Identity
+$AzureContext = (Connect-AzAccount -Identity).context
+$AzureContext = Set-AzContext -SubscriptionName $AzureContext.Subscription -DefaultProfile $AzureContext
 #endregion BoilerplateAuthentication
 
 #If you wish to use the run context, it must be converted from JSON
@@ -67,9 +60,9 @@ $vmIds | ForEach-Object {
     $rg = $split[4];
     $name = $split[8];
     Write-Output ("Subscription Id: " + $subscriptionId)
-    $mute = Select-AzureRmSubscription -Subscription $subscriptionId
+    $mute = Set-AzContext -Subscription $subscriptionId
     Write-Output "Invoking command on '$($name)' ..."
-    $newJob = Start-ThreadJob -ScriptBlock { param($resourceGroup, $vmName, $scriptPath) Invoke-AzureRmVMRunCommand -ResourceGroupName $resourceGroup -Name $VmName -CommandId 'RunPowerShellScript' -ScriptPath $scriptPath} -ArgumentList $rg, $name, $fullPath
+    $newJob = Start-ThreadJob -ScriptBlock { param($resourceGroup, $vmName, $scriptPath) Invoke-AzVMRunCommand -ResourceGroupName $resourceGroup -Name $VmName -CommandId 'RunPowerShellScript' -ScriptPath $scriptPath} -ArgumentList $rg, $name, $fullPath
     $jobIDs.Add($newJob.Id)
     
 }
