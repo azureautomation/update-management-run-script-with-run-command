@@ -9,8 +9,7 @@ This script is intended to be run as a part of Update Management Pre/Post script
 It will run a script locally on an Azure VM using the
 [Run Command](https://docs.microsoft.com/en-us/azure/virtual-machines/windows/run-command) functionality. It requires the module 'ThreadJob' from the PowerShell Gallery.
 
-UpdateManagement-RunCommand.ps1 requires a RunAs account.
-AzUpdateManagement-RunCommand.ps1 uses Az cmdlets and System Managed Identity.
+UpdateManagement-RunCommand.ps1 uses Az cmdlets and System Managed Identity.
 
 This differs from the [Run Script Locally](https://gallery.technet.microsoft.com/Update-Management-Run-6949cc44) which can act on on-prem machines, but requires a hybrid worker. 
 
